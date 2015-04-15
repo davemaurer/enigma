@@ -1,7 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/key'
+require './lib/key'
 
 class KeyTest < MiniTest::Test
 
@@ -20,19 +20,4 @@ class KeyTest < MiniTest::Test
       assert o.is_a?(Fixnum)
     end
   end
-
-
-  #takes in a string of numbers?
-  #parses that into 4 numbers
-  #
-
 end
-  # def test_it_will_generate_a_key
-  #   result = ["4", "1", "5", "2", "1"]
-  #   assert_equal result, @key.number
-  # end
-  #
-  # def test_it_will_make_pairs
-  #   result = ["41", "15", "52", "21"]
-  #   assert_equal result, @key.make_pairs
-  # end

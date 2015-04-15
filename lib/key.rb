@@ -2,6 +2,7 @@ require 'pry'
 
 class Key
   attr_reader :keystring
+
   def initialize(keystring = generate)
     @keystring = keystring
   end
