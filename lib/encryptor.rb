@@ -4,6 +4,8 @@ require_relative 'key'
 require_relative 'rotation'
 
 class Encryptor
+  attr_reader :message_file, :encrypted_file
+
   def initialize(message_file, encrypted_file)
     @message_file = message_file
     @encrypted_file = encrypted_file
@@ -11,9 +13,9 @@ class Encryptor
 
   def generate_keys
     @key_base = Key.new
+    @key_string = @key_base.keystring
     @key = @key_base.offsets
-    @date_key_base = DateKey.new
-    @date_key = @date_key_base.offsets
+    @date_key = DateKey.new.offsets
   end
 
   def encrypt_message
@@ -27,11 +29,11 @@ class Encryptor
     handle = File.open("#{@encrypted_file}", "w")
     handle.write @encrypted_message
     handle.close
-    puts "Created #{@encrypted_file} with the key #{@key_base} and date #{@date_key_base}"
+    puts "Created #{@encrypted_file} with the key #{@key_string} and date #{Time.now.strftime("%d%m%y")}"
   end
 end
 
-message_file = ARGV[0]
-encrypted_file = ARGV[1]
+message_file = ARGV[0].to_s
+encrypted_file = ARGV[1].to_s
 encryptor = Encryptor.new(message_file, encrypted_file)
 encryptor.write_secret_file
