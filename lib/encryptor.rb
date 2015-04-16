@@ -20,20 +20,15 @@ class Encryptor
 
   def encrypt_message
     generate_keys
-    rotor = Rotator.new(@message_file, Rotation.new(@key, @date_key).offsets)
+    rotor = Rotator.new("./lib/#{@message_file}", Rotation.new(@key, @date_key).offsets)
     @encrypted_message = rotor.rotate_message
   end
 
   def write_secret_file
     encrypt_message
-    handle = File.open("#{@encrypted_file}", "w")
+    handle = File.open("./lib/#{@encrypted_file}", "w")
     handle.write @encrypted_message
     handle.close
     puts "Created #{@encrypted_file} with the key #{@key_string} and date #{Time.now.strftime("%d%m%y")}"
   end
 end
-
-message_file = ARGV[0].to_s
-encrypted_file = ARGV[1].to_s
-encryptor = Encryptor.new(message_file, encrypted_file)
-encryptor.write_secret_file

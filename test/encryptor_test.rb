@@ -8,9 +8,16 @@ require './lib/date_key'
 
 class EncryptorTest < MiniTest::Test
   def test_it_will_take_args
-    ARGV[0] = "./lib/small_message.txt"
-    ARGV[1] = "./lib/encrypted_message.txt"
-    crypto = Encryptor.new
-    assert_equal "./lib/small_message.txt", crypto
+    crypto = Encryptor.new("small_message.txt", "encrypted_message.txt")
+
+    assert_equal "small_message.txt", crypto.message_file
+  end
+
+  def test_it_can_encrypt_a_message
+    file = "small_message.txt"
+    crypto = Encryptor.new(file, "encrypted_message.txt")
+    rotor = Rotator.new("./lib/#{file}", Rotation.new([81, 12, 25, 57], [2, 2, 2, 5]).offsets)
+    encrypted_message = rotor.rotate_message
+    assert_equal "x018qla1x613j", encrypted_message
   end
 end
