@@ -13,6 +13,18 @@ class EncryptorTest < MiniTest::Test
     assert_equal "small_message.txt", crypto.message_file
   end
 
+  def test_the_keystring_is_passed_in
+    crypto = Encryptor.new("small_message.txt", "encrypted_message.txt")
+    crypto.generate_keys
+    assert Key.new
+  end
+
+  def test_the_date_key_is_passed_in
+    crypto = Encryptor.new("small_message.txt", "encrypted_message.txt")
+    crypto.generate_keys
+    assert Key.new
+  end
+
   def test_it_can_encrypt_a_message
     file = "small_message.txt"
     crypto = Encryptor.new(file, "encrypted_message.txt")

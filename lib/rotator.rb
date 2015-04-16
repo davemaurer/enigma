@@ -5,7 +5,7 @@ require_relative 'date_key'
 class Rotator
   attr_reader :file, :rotation_key, :date
 
-  def initialize(file, rotation_key, date=nil)
+  def initialize(file, rotation_key)
     @date = date
     @map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
     @file = file
@@ -25,10 +25,6 @@ class Rotator
       index_count += 1
     end
     return @new_message.join
-  end
-
-  def unrotate_message
-
   end
 end
 
